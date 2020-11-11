@@ -115,17 +115,23 @@ Step 6. Now finally we have calculated the standard error of mean of seal length
 ```
 
 /* 6: Compute jackknife bias and standard error of mean of seal length */
-
-bias_Jack = (Count-1)*(Jack_mean-Data_mean);
-
 /*ssq function is used to calculate sum of squares*/
 
 Error_Jack = sqrt( (Count-1)/Count * ssq(Jack - Jack_mean) );
 
 /* Display the results */
 
-Result = Data_mean || Jack_mean || bias_Jack || Error_Jack;
-print Result[c={"Mean length of seals" "Estimate of Mean Jackknife " "Bias" "Standard Error"}];
+Result = Data_mean || Jack_mean || Error_Jack;
+print Result[c={"Mean length of seals" "Estimate of Mean Jackknife " "Standard Error"}];
 ```
 
+# Results 
 
+In the below table we can see the results. We can see the original mean of the data is same as the estimate mean of jack Knife 
+samples. The standard error is 0.553 which is 0.5% of the estimate of mean. Thus we can say that as the Standard Error is low 
+the jack Knife samples are good a representation of the whole overall population  
+
+Mean length of seals | Estimate of Mean Jackknife | Standard Error          
+---------------------|----------------------------|-------------
+     110.71628       |     110.71628              | 0.5537712
+     
