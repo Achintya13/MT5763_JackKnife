@@ -22,17 +22,110 @@ In our case we will calculate the standard error of mean of seal length.
 
 # Differences Between Jackknife and Bootstrap
 
-The main difference between bootstrap and Jackknife is that in jack knife there are "n" (Sample size) jack knife samples where as in bootstrap generally we have to take at-least 1000 samples to get the proper result. Another difference is that jack Knife give almost the same estimate same time it is run because of small difference between the samples where as in Bootstrap, it give different results each time it is run. The data in bootstrap is sampled with replacement where as in jack Knife it is sample with without replacement(each sample contain all the data observations except one).
+The main difference between bootstrap and Jackknife is that in jack knife there are "n" (Sample size) jack knife samples where as in bootstrap generally we have to take at-least 1000 samples to get the proper result. Another difference is that jack Knife give almost the same estimate same time it is run because of small difference between the samples where as in Bootstrap, it give different results each time it is run. The data in bootstrap is sampled with replacement where as in jack Knife it is sample with without replacement(each sample contain all the data observations except one).(Glen,2019)
 
 
+# Methodology 
+
+For our Jack Knife code we have used procedure(IML) as it's mainly use for matrix programming. Below are steps we have followed:
+
+Step 1. First we will load the seal data and store it in SAS_PAR library with file name as SEALS.
+(Refer the below code)
+
+```
+/* 1.Read the file*/
+%web_drop_table(SAS_PAR.SEALS);
+FILENAME REFFILE '/folders/myfolders/seals.csv';
+PROC IMPORT DATAFILE=REFFILE
+	DBMS=CSV
+	OUT=SAS_PAR.SEALS;
+	GETNAMES=YES;
+RUN;
+PROC CONTENTS DATA=SAS_PAR.SEALS; RUN;
+%web_open_table(SAS_PAR.SEALS)
+```
+
+Step 2. Now we have created a function Matrix_Jack(data), this function will create a matrix with each column as a jack Knife sample. The size of each Jack Knife sample will be "n - 1 " because jack Knife samples are created by simultaneously removing one observation at a time in each data set. So the matrix structure will be "n-1" rows with "n" columns. (Refer the below code)
+
+```
+/* 2.Function to create n Jack Knife samples*/
+/*Here n = 100 samples*/
+/* We will creat a matrix where each column contains the jack Knife sample */
+
+proc iml;
+start Matrix_Jack(data) global(Count);
+
+/* To count the number of samples */
+
+Count =nrow(data);
+
+/*Creating the matrix*/
+
+Matrix =j(Count-1,Count,0);
+do i = 1 to Count;
+
+/* Taking the transpose to store it in a coulmn */
+
+Matrix[,i] = remove(data, i)`; 
+end;
+return Matrix;
+finish;
+```
+
+Step 3. Now we will read the data from the library SAS_PAR with file name SEALS(which we loaded in the step 1) with only column name as "Lengths" and load it 
+to a variable "data".
+(Refer the below code)
+
+```
+/* 3.Read the data, where column name = lengths */
+
+use SAS_PAR.SEALS;  
+read all var {"Lengths"} into data;  
+close;
+```
+Step 4. Below code can be used to view the matrix we have created using the function Matrix_Jack(data) where we will pass data as a parameter. 
+
+```
+/* 4.Matrix for jackknife samples */
+
+*Matrix = Matrix_Jack(data);
+*print Matrix[c=("Column1"	:"Column1100") r=("1":"100")];
+```
+
+Step 5. In the below code we have calculated the total mean of the original data, then individual mean of each jack Knife sample 
+and finally the total mean of all the jack Knife sample mean.
+
+```
+/* 5.Compute mean of lengths of seals */
+
+Data_mean = mean(data);
+
+/* Compute mean for each Jack Knife sample */
+
+Jack = mean( Matrix_Jack(data) ); 
+
+/* transpose of Jack to calculate the total mean of all the jack Knife sample mean*/
+
+Jack_mean = mean( Jack` );
+```
+
+Step 6. Now finally we have calculated the standard error of mean of seal length and displayed the results. 
 
 
+```
 
+/* 6: Compute jackknife bias and standard error of mean of seal length */
 
+bias_Jack = (Count-1)*(Jack_mean-Data_mean);
 
+/*ssq function is used to calculate sum of squares*/
 
+Error_Jack = sqrt( (Count-1)/Count * ssq(Jack - Jack_mean) );
 
+/* Display the results */
 
-
+Result = Data_mean || Jack_mean || bias_Jack || Error_Jack;
+print Result[c={"Mean length of seals" "Estimate of Mean Jackknife " "Bias" "Standard Error"}];
+```
 
 
