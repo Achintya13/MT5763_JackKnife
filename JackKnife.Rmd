@@ -20,5 +20,19 @@ The Jack Knife method is another non-parametric method to estimate the standard 
 In our case we will calculate the standard error of mean of seal length. 
 
 
- 
+# Differences Between Jackknife and Bootstrap
+
+The main difference between bootstrap and Jackknife is that in jack knife there are "n" (Sample size) jack knife samples where as in bootstrap generally we have to take at-least 1000 samples to get the proper result. Another difference is that jack Knife give almost the same estimate same time it is run because of small difference between the samples where as in Bootstrap, it give different results each time it is run. The data in bootstrap is sampled with replacement where as in jack Knife it is sample with without replacement(each sample contain all the data observations except one).
+
+
+
+
+
+
+
+
+
+
+
+
 
