@@ -2,7 +2,9 @@
 title: "SAS JackKnife"
 author: "Achintya Mengi"
 date: "11/11/2020"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -29,7 +31,9 @@ The main difference between bootstrap and Jackknife is that in jack knife there 
 
 For our Jack Knife code we have used procedure(IML) as it's mainly use for matrix programming. Below are steps we have followed:
 
-Step 1. First we will load the seal data and store it in SAS_PAR library with file name as SEALS.
+## Step 1.
+
+First we will load the seal data and store it in SAS_PAR library with file name as SEALS.
 (Refer the below code)
 
 ```
@@ -45,7 +49,9 @@ PROC CONTENTS DATA=SAS_PAR.SEALS; RUN;
 %web_open_table(SAS_PAR.SEALS)
 ```
 
-Step 2. Now we have created a function Matrix_Jack(data), this function will create a matrix with each column as a jack Knife sample. The size of each Jack Knife sample will be "n - 1 " because jack Knife samples are created by simultaneously removing one observation at a time in each data set. So the matrix structure will be "n-1" rows with "n" columns. (Refer the below code)
+## Step 2. 
+
+Now we have created a function Matrix_Jack(data), this function will create a matrix with each column as a jack Knife sample. The size of each Jack Knife sample will be "n - 1 " because jack Knife samples are created by simultaneously removing one observation at a time in each data set. So the matrix structure will be "n-1" rows with "n" columns. (Refer the below code)
 
 ```
 /* 2.Function to create n Jack Knife samples*/
@@ -72,7 +78,9 @@ return Matrix;
 finish;
 ```
 
-Step 3. Now we will read the data from the library SAS_PAR with file name SEALS(which we loaded in the step 1) with only column name as "Lengths" and load it 
+## Step 3.
+
+Now we will read the data from the library SAS_PAR with file name SEALS(which we loaded in the step 1) with only column name as "Lengths" and load it 
 to a variable "data".
 (Refer the below code)
 
@@ -83,7 +91,9 @@ use SAS_PAR.SEALS;
 read all var {"Lengths"} into data;  
 close;
 ```
-Step 4. Below code can be used to view the matrix we have created using the function Matrix_Jack(data) where we will pass data as a parameter. 
+## Step 4. 
+
+Below code can be used to view the matrix we have created using the function Matrix_Jack(data) where we will pass data as a parameter. 
 
 ```
 /* 4.Matrix for jackknife samples */
@@ -92,7 +102,9 @@ Step 4. Below code can be used to view the matrix we have created using the func
 *print Matrix[c=("Column1"	:"Column1100") r=("1":"100")];
 ```
 
-Step 5. In the below code we have calculated the total mean of the original data, then individual mean of each jack Knife sample 
+## Step 5.
+
+In the below code we have calculated the total mean of the original data, then individual mean of each jack Knife sample 
 and finally the total mean of all the jack Knife sample mean.
 
 ```
@@ -109,7 +121,9 @@ Jack = mean( Matrix_Jack(data) );
 Jack_mean = mean( Jack` );
 ```
 
-Step 6. Now finally we have calculated the standard error of mean of seal length and displayed the results. 
+## Step 6. 
+
+Now finally we have calculated the standard error of mean of seal length and displayed the results. 
 
 
 ```
