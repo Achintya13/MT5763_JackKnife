@@ -128,10 +128,27 @@ print Result[c={"Mean length of seals" "Estimate of Mean Jackknife " "Standard E
 # Results 
 
 In the below table we can see the results. We can see the original mean of the data is same as the estimate mean of jack Knife 
-samples. The standard error is 0.553 which is 0.5% of the estimate of mean. Thus we can say that as the Standard Error is low 
+samples. The standard error is 0.553 which is 0.5% of the estimate of mean. Thus we can say that as the Standard Error is low, 
 the jack Knife samples are good a representation of the whole overall population  
 
 Mean length of seals | Estimate of Mean Jackknife | Standard Error          
 ---------------------|----------------------------|-------------
      110.71628       |     110.71628              | 0.5537712
      
+
+# Conclusion 
+
+We have successfully built a code in SAS using IML procedure to implement the jack Knife logic to calculate the 
+standard error of mean of seal length which is 0.553. Which is low, leading to the conclusion that Jack Knife samples are
+the true representation of the overall population. The standard error is 0.5% of the estimate.
+
+
+# Reference 
+
+1. Stephanie Glen(2019). Resampling Methods: Bootstrap vs jackknife. [Online] Available at:
+https://www.datasciencecentral.com/profiles/blogs/resampling-methods-comparison Accessed 11/11/2020
+
+2. Rick Wicklin(2017). Jackknife estimates in SAS [Online] Available at:
+https://blogs.sas.com/content/iml/2017/06/21/jackknife-estimate-standard-error-sas.html
+
+
