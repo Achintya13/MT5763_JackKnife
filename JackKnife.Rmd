@@ -1,5 +1,5 @@
 ---
-title: "SAS_JackKnife"
+title: "SAS JackKnife"
 author: "Achintya Mengi"
 date: "11/11/2020"
 output: html_document
@@ -9,22 +9,10 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# Abstract 
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+When assumptions of a parametric model are violated or not met, the inference of those models can not be trusted. For such situations we shift to non-parametric methods like bootstrap and Jack Knife. In our report we will discuss about Jack Knife, how it can be used to calculate the standard error of mean of seal body length. 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
-summary(cars)
-```
 
-## Including Plots
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
