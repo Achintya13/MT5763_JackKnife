@@ -14,5 +14,11 @@ knitr::opts_chunk$set(echo = TRUE)
 When assumptions of a parametric model are violated or not met, the inference of those models can not be trusted. For such situations we shift to non-parametric methods like bootstrap and Jack Knife. In our report we will discuss about Jack Knife, how it can be used to calculate the standard error of mean of seal body length. 
 
 
+# Introduction
 
+The Jack Knife method is another non-parametric method to estimate the standard error of data without considering the assumptions for the population that created the data. Jack knife method is a "leave-one-out" re-sample of the observation. In Jack Knife, if data sample size is 'n' then 'n' jack Knife samples are created with continuously removing one observation at a time, each of size (n-1). So for the first Jack Knife sample there will be (n - 1st observation) , for second sample (n-2nd observation) and so on. Once we have the collection of all the Jack Knife samples we can calculate any statistics of our interest.
+In our case we will calculate the standard error of mean of seal length. 
+
+
+ 
 
